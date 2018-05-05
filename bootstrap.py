@@ -10,8 +10,14 @@ try:
     print("- Ansible already installed!")
 except:
     print("- Ansible not found - installing ...")
-    print("- apt-get update")
+    print("  - apt-get update")
     os.system('sudo apt-get update > /dev/null')
-    print("- apt-get install")
+    print("  - apt-get install")
     os.system('sudo apt-get install {} -y > /dev/null'.format(packages))
     print("- Ansible installed!")
+
+# Running Ansible playbook
+print("Run Ansible playbook")
+os.system('ansible-playbook ansible-ubuntu-dekstop.yml --ask-become-pass')
+
+print("Finished bootstrapping ...")
