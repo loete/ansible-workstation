@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import subprocess, os
 # Check if Ansible installation - install if not 
+packages = 'software-properties-common ansible git python-apt' 
+
 print("Checking Ansible installation")
 apt_list = subprocess.Popen(['apt', 'list', '--installed'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 try:
