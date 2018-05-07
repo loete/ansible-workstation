@@ -1,0 +1,28 @@
+---
+
+- name: Install zsh
+  sudo: yes
+  apt: pkg=zsh state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
+
+- name: Clone oh-my-zsh repo
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="~/.oh-my-zsh"
+  sudo: False
+
+- name: Clone oh-my-zsh custom plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "~/.oh-my-zsh/custom/plugins/{{ item.name }}"
+    update: no
+  with_nested:
+    - "{{ oh_my_zsh_custom_plugins }}"
+
+- name: copy .zshrc to $HOME
+  sudo: no
+  template:
+    src: zshrc.j2
+    dest: ~/.zshrc
+
+- name: change shell to ZSH
+  user: name={{user}} shell=/usr/bin/zsh
+  sudo: True
+

@@ -2,5 +2,9 @@
 
 - name: Ubuntu Desktop Environment
   hosts: localhost
+  vars:
+    user: loete
   roles:
-    # TODO:
+    # Common roles:
+    - { role: common, become:true }
+    - { role: zsh, become:true }
