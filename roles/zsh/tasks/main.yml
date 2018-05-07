@@ -10,8 +10,8 @@
 
 - name: Clone oh-my-zsh custom plugins
   git:
-    repo: "git://github.com/zsh-users/{{ item }}.git"
-    dest: "~/.oh-my-zsh/custom/plugins/{{ item }}"
+    repo: "https://github.com/zsh-users/{{ item }}"
+    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/{{ item }}"
     update: no
   with_nested:
     - zsh-syntax-highlighting
