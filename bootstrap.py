@@ -18,6 +18,6 @@ except:
 
 # Running Ansible playbook
 print("Run Ansible playbook")
-os.system('ansible-playbook ansible-ubuntu-dekstop.yml --ask-become-pass')
+os.system('ansible-playbook ansible-ubuntu-desktop.yml --ask-become-pass')
 
 print("Finished bootstrapping ...")
