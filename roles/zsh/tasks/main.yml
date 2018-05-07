@@ -9,13 +9,8 @@
   sudo: False
 
 - name: Clone oh-my-zsh custom plugins
-  git:
-    repo: "https://github.com/zsh-users/{{ item }}"
-    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/{{ item }}"
-    update: no
-  with_nested:
-    - zsh-syntax-highlighting
-    - zsh-autosuggestions
+  git: repo=https://github.com/zsh-users/zsh-syntax-highlighting.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" update=no
+  git: repo=https://github.com/zsh-users/zsh-autosuggestions.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" update=no
 
 - name: copy .zshrc to $HOME
   sudo: no
