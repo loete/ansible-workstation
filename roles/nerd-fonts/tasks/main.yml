@@ -1,10 +1,9 @@
 ---
 
-- name: Fetch nerd-fonts
-  get_url:
-    url: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/install.sh
-    dest: /tmp/install-nerd-fonts.sh
-    mode: 0755
+- name: Clone nerd-fonts repo
+  git:
+    repo: https://github.com/ryanoasis/nerd-fonts.git
+    dest: "/home/{{ user }}/.local/nerd-fonts"
 
 - name: Install nerd-fonts
-  command: sh /tmp/install-nerd-fonts.sh Noto
+  command: "./home/{{ user }}/.local/nerd-fonts/install.sh Noto"
