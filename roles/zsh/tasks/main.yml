@@ -17,6 +17,9 @@
   git: repo=https://github.com/zsh-users/zsh-autosuggestions.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" update=no
   git: repo=https://github.com/bhilburn/powerlevel9k.git dest="/home/{{ user }}/.oh-my-zsh/themes/powerlevel9k"
 
+- name: Install oh-my-zsh
+  command: sh /tmp/install-oh-my-zsh.sh
+
 - name: copy .zshrc to $HOME
   sudo: yes
   template:
