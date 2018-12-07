@@ -6,7 +6,7 @@
 
 - name: Change shell to ZSH
   user:
-    name: {{ user }}
+    name: "{{ user }}"
     shell: /usr/bin/zsh
   become: yes
 
