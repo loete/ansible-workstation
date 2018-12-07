@@ -1,0 +1,10 @@
+---
+
+- name: Fetch nerd-fonts
+  get_url:
+    url: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/install.sh
+    dest: /tmp/install-nerd-fonts.sh
+    mode: 0755
+
+- name: Install nerd-fonts
+  command: sh /tmp/install-nerd-fonts.sh Noto
