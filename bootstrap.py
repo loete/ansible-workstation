@@ -11,9 +11,9 @@ try:
 except:
     print("- Ansible not found - installing ...")
     print("  - apt update")
-    os.system('sudo apt update > /dev/null')
+    os.system('sudo apt-get update > /dev/null')
     print("  - apt install")
-    os.system('sudo ap install {} -y > /dev/null'.format(packages))
+    os.system('sudo apt-get install {} -y > /dev/null'.format(packages))
     print("- Ansible installed!")
 
 # Running Ansible playbook
