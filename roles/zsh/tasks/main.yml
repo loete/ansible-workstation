@@ -6,11 +6,11 @@
 
 - name: Change shell to ZSH
   user: name={{ user }} shell=/usr/bin/zsh
-  sudo: True
+  sudo: yes
 
 - name: Clone oh-my-zsh repo
   git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user }}/.oh-my-zsh"
-  sudo: False
+  sudo: no
 
 - name: Clone oh-my-zsh custom plugins and themes
   git: repo=https://github.com/zsh-users/zsh-syntax-highlighting.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" update=no
@@ -23,7 +23,7 @@
     dest: "/home/{{ user }}/.zshrc-backup.{{ ansible_date_time.epoch }}"
 
 - name: copy .zshrc to $HOME
-  sudo: True
+  sudo: yes
   template:
     src: zshrc.j2
     dest: "/home/{{ user }}/.zshrc"
