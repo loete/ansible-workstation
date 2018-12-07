@@ -10,8 +10,8 @@
 
 - name: Fetch oh-my-zsh
   get-url:
-    url: repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user }}/.oh-my-zsh"
-    dest: /tmp/install-oh-my-zsh.sh
+    url: "repo=https://github.com/robbyrussell/oh-my-zsh.git dest="/home/{{ user }}/.oh-my-zsh"
+    dest: ""/tmp/install-oh-my-zsh.sh"
     mode: 0755
 
 - name: Install oh-my-zsh
