@@ -1,35 +1,21 @@
 ---
 
-- name: Install Adapta-Theme
-  git: repo=https://github.com/tista500/Adapta/ dest="{{ ansible_env.HOME }}/.cache/adapta-theme" update=yes accept_hostkey=yes
-  register: adapta_theme_git
-  become: true
-  become_user: "{{ ansible_env.USER }}"
+- name: configure the adapta-theme APT repositories
+  apt_repository:
+    repo: "ppa:tista/adapta"
+    state: present
+    update_cache: yes
+  become: yes
 
-- name: Configure
-  command: ./autogen.sh --prefix=/usr --disable-cinnamon --enable-chrome
-  args:
-    chdir: "{{ ansible_env.HOME }}/.cache/adapta-theme"
-  register: adapta_theme_configure
-  become: true
-  become_user: "{{ ansible_env.USER }}"
-  when: adapta_theme_git.changed
 
-- name: Make
-  command: make install
-  args:
-    chdir: "{{ ansible_env.HOME }}/.cache/adapta-theme"
-  register: adapta_theme_make
-  when: adapta_theme_git.changed
+- name: install adapta-theme
+  apt: pkg=adapta-gtk-theme state=latest
+  become: yes
 
-- name: Set GTK Theme to Adapta-Nokto
+- name: set GTK Theme to Adapta-Nokto
   command: "gsettings set org.gnome.desktop.interface gtk-theme Adapta-Nokto"
-  become: true
   become_user: "{{ ansible_env.USER }}"
-  changed_when: adapta_theme_git.changed
 
-- name: Set Windows Manager Theme to Adapta-Nokto
+- name: set Windows Manager Theme to Adapta-Nokto
   command: "gsettings set org.gnome.desktop.wm.preferences theme Adapta-Nokto"
-  become: true
   become_user: "{{ ansible_env.USER }}"
-  changed_when: adapta_theme_git.changed
