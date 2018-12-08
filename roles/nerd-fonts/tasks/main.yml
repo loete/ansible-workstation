@@ -1,9 +1,41 @@
 ---
 
-- name: Clone nerd-fonts repo
-  git:
-    repo: https://github.com/ryanoasis/nerd-fonts.git
-    dest: "/home/{{ user }}/.local/nerd-fonts"
+- name: Ubuntu Mono Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/UbuntuMono/Regular/complete/Ubuntu%20Mono%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Ubuntu Mono Nerd Font Complete.ttf"
 
-- name: Install nerd-fonts
-  command: "./home/{{ user }}/.local/nerd-fonts/install.sh Noto"
+- name: Ubuntu Mono Italic Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/UbuntuMono/Regular-Italic/complete/Ubuntu%20Mono%20Italic%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Ubuntu Mono Italic Nerd Font Complete.ttf"
+
+- name: Ubuntu Mono Bold Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/UbuntuMono/Bold/complete/Ubuntu%20Mono%20Bold%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Ubuntu Mono Bold Nerd Font Complete.ttf"
+
+- name: Ubuntu Mono Bold Italic Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/UbuntuMono/Bold-Italic/complete/Ubuntu%20Mono%20Bold%20Italic%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Ubuntu Mono Bold Italic Nerd Font Complete.ttf"
+
+- name: Noto Mono Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/Noto/Mono/complete/Noto%20Mono%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Noto Mono Nerd Font Complete.ttf"
+
+- name: Noto Sans Display Regular Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/Noto/Sans-Display/complete/Noto%20Sans%20Display%20Regular%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Noto Sans Display Regular Nerd Font Complete.ttf"
+
+- name: Noto Sans Regular Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/Noto/Sans/complete/Noto%20Sans%20Regular%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Noto Sans Regular Nerd Font Complete.ttf"
+
+- name: Noto Sans Display Bold Nerd Font Complete.ttf
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Noto/Sans-Display/complete/Noto%20Sans%20Display%20Bold%20Nerd%20Font%20Complete.ttf
+    dest: "/home/{{ user }}/.local/share/fonts/Noto Sans Display Bold Nerd Font Complete.ttf"
