@@ -13,7 +13,7 @@
   become_user: "{{ ansible_env.USER }}"
 
 - name: Set document-font-name
-  command: "gsettings set org.gnome.desktop.interface monospace-font-name 'Noto Sans 11'"
+  command: "gsettings set org.gnome.desktop.interface document-font-name 'Noto Sans 11'"
   become: true
   become_user: "{{ ansible_env.USER }}"
 
