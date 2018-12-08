@@ -1,7 +1,6 @@
 ---
 
 - name: Install zsh
-  sudo: yes
   apt: pkg=zsh state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
 
 - name: Change shell to ZSH
@@ -19,10 +18,23 @@
 - name: Install oh-my-zsh
   command: sh /tmp/install-oh-my-zsh.sh
 
-- name: Clone oh-my-zsh custom plugins and themes
-  git: repo=https://github.com/zsh-users/zsh-syntax-highlighting.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" update=no
-  git: repo=https://github.com/zsh-users/zsh-autosuggestions.git  dest="/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" update=no
-  git: repo=https://github.com/bhilburn/powerlevel9k.git dest="/home/{{ user }}/.oh-my-zsh/themes/powerlevel9k" update=no
+- name: Clone zsh-syntax-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    update: no
+
+- name: Clone zsh-autosuggestions
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    update: no
+
+- name: Clone powerlevel9k
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: "/home/{{ user }}/.oh-my-zsh/themes/powerlevel9k"
+    update: no
 
 - name: copy .zshrc to $HOME
   template:

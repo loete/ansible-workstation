@@ -1,5 +1,8 @@
 ---
 
+- name: create fonts folder
+  command: "mkdir -p /home/{{ user }}/.local/share/fonts"
+
 - name: Ubuntu Mono Nerd Font Complete.ttf
   get_url:
     url: https://github.com/ryanoasis/nerd-fonts/blob/2.0.0/patched-fonts/UbuntuMono/Regular/complete/Ubuntu%20Mono%20Nerd%20Font%20Complete.ttf
