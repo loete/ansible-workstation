@@ -1,14 +1,16 @@
 ---
 
 - name: Configure the papirus-icon-theme APT repositories
-  apt_repository: repo="ppa:papirus/papirus" state=present
+  apt_repository:
+    repo: "ppa:papirus/papirus"
+    state: present
 
 - name: Install papirus-icon-theme
   apt: pkg=papirus-icon-theme state=latest
   register: papirus_icon_theme
 
 - name: Set GTK Icons to papirus-icon-theme
-  command: "gsettings set org.gnome.desktop.interface icon-theme Papirus-Adapta-Nokto"
+  command: "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
   become: true
   become_user: "{{ ansible_env.USER }}"
   changed_when: papirus_icon_theme.changed
