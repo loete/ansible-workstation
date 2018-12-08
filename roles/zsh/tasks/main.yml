@@ -1,44 +1,44 @@
 ---
 
-- name: Install zsh
+- name: install zsh
   apt: pkg=zsh state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
 
-- name: Change shell to ZSH
-  user:
-    name: "{{ user }}"
-    shell: /usr/bin/zsh
-  become: yes
-
-- name: Fetch oh-my-zsh
-  get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/install-oh-my-zsh.sh
-    mode: 0755
-
-- name: Install oh-my-zsh
-  command: sh /tmp/install-oh-my-zsh.sh
-
-- name: Clone zsh-syntax-highlighting
+- name: clone oh-my-zsh repo
   git:
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-    update: no
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
 
-- name: Clone zsh-autosuggestions
+- name: clone zsh-syntax-highlighting
   git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    repo: https://github.com/zsh-users/{{ item }}.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/{{ item }}"
     update: no
+  loop: "{{ zsh_users_plugins }}"
 
-- name: Clone powerlevel9k
+- name: clone powerlevel9k
   git:
     repo: https://github.com/bhilburn/powerlevel9k.git
-    dest: "/home/{{ user }}/.oh-my-zsh/themes/powerlevel9k"
-    update: no
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/themes/powerlevel9k"
 
 - name: copy .zshrc to $HOME
   template:
     src: zshrc.j2
     dest: "/home/{{ user }}/.zshrc"
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+
+- name: copy fonts
+  copy:
+    src: fonts/
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+
+- name: Set monospace-font-name
+  command: "gsettings set org.gnome.desktop.interface monospace-font-name 'Noto Mono for Powerline Bold 11'"
+  become_user: "{{ ansible_env.USER }}"
+
+- name: Change shell to ZSH
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh

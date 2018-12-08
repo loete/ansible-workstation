@@ -6,9 +6,7 @@ oh_my_zsh_custom_plugins:
   - name: zsh-autosuggestions
     repo: "git://github.com/zsh-users/zsh-autosuggestions.git"
 
-oh_my_zsh_plugins:
-  - git
-  - git-flow
-  - docker
+zsh_users_plugins:
   - zsh-syntax-highlighting
   - zsh-autosuggestions
+  - zsh-completions
