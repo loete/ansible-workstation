@@ -35,7 +35,7 @@
     group: "{{ ansible_env.USER }}"
 
 - name: Set monospace-font-name
-  command: "gsettings set org.gnome.desktop.interface monospace-font-name 'Noto Mono for Powerline Bold 11'"
+  command: "gsettings set org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'"
   become_user: "{{ ansible_env.USER }}"
 
 - name: Change shell to ZSH
