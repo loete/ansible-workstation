@@ -40,3 +40,5 @@
   template:
     src: zshrc.j2
     dest: "/home/{{ user }}/.zshrc"
+    owner: "{{ user }}"
+    group: "{{ user }}"
