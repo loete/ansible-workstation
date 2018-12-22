@@ -1,11 +1,10 @@
 ---
 
-- name: get desktop Environment
-  command: echo $DESKTOP_SESSION
-  register: dekstop
+- debug:
+    var: ansible_facts['env']['GDMSESSION']
 
 - include_tasks: gnome.yml
-  when: desktop == 'gnome-xorg'
+  when: ansible_facts['env']['GDMSESSION'] == "gnome-xorg"
 
 - include_tasks: xfce.yml
-  when: dekstop == 'xfce'
+  when: ansible_facts['env']['GDMSESSION'] == "xubuntu"
