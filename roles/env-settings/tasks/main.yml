@@ -1,0 +1,11 @@
+---
+
+- name: get desktop Environment
+  command: echo $DESKTOP_SESSION
+  register: dekstop
+
+- include_tasks: gnome.yml
+  when: desktop == 'gnome-xorg'
+
+- include_tasks: xfce.yml
+  when: dekstop == 'xfce'

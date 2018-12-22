@@ -7,15 +7,6 @@
     update_cache: yes
   become: yes
 
-
 - name: install adapta-theme
   apt: pkg=adapta-gtk-theme state=latest
   become: yes
-
-- name: set GTK Theme to Adapta-Nokto
-  command: "gsettings set org.gnome.desktop.interface gtk-theme Adapta-Nokto"
-  become_user: "{{ ansible_env.USER }}"
-
-- name: set Windows Manager Theme to Adapta-Nokto
-  command: "gsettings set org.gnome.desktop.wm.preferences theme Adapta-Nokto"
-  become_user: "{{ ansible_env.USER }}"

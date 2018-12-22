@@ -1,0 +1,10 @@
+---
+
+- name: set gsettings
+  command: "gsettings set {{ item }}"
+  become_user: "{{ ansible_env.USER }}"
+  with_items:
+  - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
+  - org.gnome.desktop.interface gtk-theme Adapta-Nokto
+  - org.gnome.desktop.interface icon-theme Papirus-Dark
+  - org.gnome.desktop.wm.preferences theme Adapta-Nokto
