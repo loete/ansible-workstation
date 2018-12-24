@@ -1,5 +1,13 @@
 ---
 
+- name: install gnome-seesion
+  apt: pkg=gnome-session state=latest
+  become: yes
+
+- name: gdm3.css
+  command: update-alternatives --config gdm3.css
+  become: yes
+
 - name: set gsettings
   command: "gsettings set {{ item }}"
   become_user: "{{ ansible_env.USER }}"

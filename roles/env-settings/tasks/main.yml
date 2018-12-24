@@ -1,10 +1,10 @@
 ---
 
 - debug:
-    var: ansible_facts['env']['GDMSESSION']
+    var: ansible_facts
 
 - include_tasks: gnome.yml
-  when: ansible_facts['env']['GDMSESSION'] == "gnome-xorg"
+  when: ansible_facts['env']['DESKTOP_SESSION'] == "ubuntu"
 
 - include_tasks: xfce.yml
-  when: ansible_facts['env']['GDMSESSION'] == "xubuntu"
+  when: ansible_facts['env']['DESKTOP_SESSION'] == "xubuntu"

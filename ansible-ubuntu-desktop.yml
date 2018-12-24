@@ -11,3 +11,4 @@
     #- { role: adapta-theme, beomce: true }
     #- { role: papirus-icon-theme, become: true }
     - { role: env-settings, become: true }
+    - { role: vs-code, become: true }
