@@ -1,18 +1,32 @@
 ---
 
-- name: install gnome-seesion
+- name: install gnome-session
   apt: pkg=gnome-session state=latest
   become: yes
 
+- name: enable adapta gdm3 login screen
+  command: update-alternatives --install /usr/share/gnome-shell/theme/gdm3.css gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css 1
+  become: yes
+
 - name: gdm3.css
-  command: update-alternatives --config gdm3.css
+  command: update-alternatives --set gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css
+  become: yes
+
+- name: link Adapta-Nokto gnome-shell-theme.gresource
+  command: ln -frs /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource
   become: yes
 
 - name: set gsettings
   command: "gsettings set {{ item }}"
   become_user: "{{ ansible_env.USER }}"
+  become: true
   with_items:
   - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
+  - org.gnome.desktop.interface font-name 'Noto Sans UI 11'
+  - org.gnome.desktop.interface document-font-name 'Noto Sans 11'
   - org.gnome.desktop.interface gtk-theme Adapta-Nokto
   - org.gnome.desktop.interface icon-theme Papirus-Dark
   - org.gnome.desktop.wm.preferences theme Adapta-Nokto
+  - org.gnome.desktop.wm.preferences titlebar-uses-system-font true
+  - org.gnome.desktop.wm.preferences button-layout ':appmenu,close'
+  - org.gnome.desktop.wm.preferences titlebar-font 'NotoSansDisplay Nerd Font Bold 11'
