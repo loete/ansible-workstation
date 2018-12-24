@@ -2,38 +2,36 @@
 
 - name: install gnome-session
   apt: pkg=gnome-session state=latest
-  #become: yes
 
 - name: enable adapta gdm3 login screen
   command: update-alternatives --install /usr/share/gnome-shell/theme/gdm3.css gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css 1
-  #become: yes
 
 - name: gdm3.css
   command: update-alternatives --set gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css
-  #become: yes
+
+- name: remove *.css files
+  file:
+    path: "/usr/share/gnome-shell/{{ item }}"
+    state: absent
+  with_items:
+    - theme/gnome-shell.css
+    - theme/ubuntu.css
+    - gnome-shell-theme.gresource
+
+- name: fix gnome-shell.css
+  command: sed -i.orig '/panel:overview/ s/rgba(19, 25, 28, 0.01)/rgba(19, 25, 28, 0.7)/g' /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell.css
 
 - name: link Adapta-Nokto gnome-shell-theme.gresource
   file:
     src: /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell-theme.gresource
     dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
     state: link
-  #become: yes
-
-- name: remove *.css files
-  file:
-    path: "/usr/share/gnome-shell/theme/{{ item }}"
-    state: absent
-  #become: yes
-  with_items:
-    - gnome-shell.css
-    - ubuntu.css
 
 - name: create links to Adapta-Nokto gnome-shell.css
   file:
     src: /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell.css
     dest: "/usr/share/gnome-shell/theme/{{ item }}"
     state: link
-  #become: yes
   with_items:
     - gnome-shell.css
     - ubuntu.css
@@ -41,7 +39,6 @@
 - name: set gsettings
   command: "gsettings set {{ item }}"
   become_user: "{{ ansible_env.USER }}"
-  become: true
   with_items:
   - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
   - org.gnome.desktop.interface font-name 'Noto Sans UI 11'
