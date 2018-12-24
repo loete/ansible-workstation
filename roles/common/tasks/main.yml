@@ -36,10 +36,10 @@
     - iftop
     - imagemagick
     - iotop
+    - keepassxc
     - less
     - lftp
     - make
-    - nano
     - nfs-common
     - nmap
     - openssl

@@ -2,19 +2,41 @@
 
 - name: install gnome-session
   apt: pkg=gnome-session state=latest
-  become: yes
+  #become: yes
 
 - name: enable adapta gdm3 login screen
   command: update-alternatives --install /usr/share/gnome-shell/theme/gdm3.css gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css 1
-  become: yes
+  #become: yes
 
 - name: gdm3.css
   command: update-alternatives --set gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css
-  become: yes
+  #become: yes
 
 - name: link Adapta-Nokto gnome-shell-theme.gresource
-  command: ln -frs /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource
-  become: yes
+  file:
+    src: /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell-theme.gresource
+    dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
+    state: link
+  #become: yes
+
+- name: remove *.css files
+  file:
+    path: "/usr/share/gnome-shell/theme/{{ item }}"
+    state: absent
+  #become: yes
+  with_items:
+    - gnome-shell.css
+    - ubuntu.css
+
+- name: create links to Adapta-Nokto gnome-shell.css
+  file:
+    src: /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell.css
+    dest: "/usr/share/gnome-shell/theme/{{ item }}"
+    state: link
+  #become: yes
+  with_items:
+    - gnome-shell.css
+    - ubuntu.css
 
 - name: set gsettings
   command: "gsettings set {{ item }}"

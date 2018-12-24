@@ -1,8 +1,5 @@
 ---
 
-- debug:
-    var: ansible_facts
-
 - include_tasks: gnome.yml
   when: ansible_facts['env']['DESKTOP_SESSION'] == "ubuntu"
 
