@@ -1,0 +1,11 @@
+---
+
+snaps:
+  - telegram-desktop
+  - signal-desktop
+  - spotify
+  - vlc
+  - gimp
+  - inkscape
+  - robo3t-snap
+  - skype --classic

@@ -12,3 +12,4 @@
     - { role: adapta-theme, become: true }
     - { role: papirus-icon-theme, become: true }
     - { role: env-settings, become: true }
+    - { role: snaps, become: true }

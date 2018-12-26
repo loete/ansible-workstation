@@ -73,6 +73,8 @@
   command: "gsettings set {{ item }}"
   become_user: "{{ ansible_env.USER }}"
   with_items:
+  - org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'code.desktop']"
+  - org.gnome.shell enabled-extensions "['caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'ubuntu-appindicators@ubuntu.com']"
   - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
   - org.gnome.desktop.interface font-name 'Noto Sans UI 11'
   - org.gnome.desktop.interface document-font-name 'Noto Sans 11'
@@ -93,5 +95,10 @@
   - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
   - org.gnome.shell.extensions.dash-to-dock custom-background-color true
   - org.gnome.shell.extensions.dash-to-dock dock-fixed false
-  - org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'code.desktop']"
-  - org.gnome.shell enabled-extensions "['caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'ubuntu-appindicators@ubuntu.com']"
+
+- name: uninstall ubuntu-dock
+  apt:
+    name: gnome-shell-extension-ubuntu-dock
+    state: absent
+  tags:
+    - extensions
