@@ -1,5 +1,12 @@
 ---
 
+- name: copy wallpapers
+  copy:
+    src: wallpapers/
+    dest: "{{ ansible_env.HOME }}/.local/share/wallpapers/"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+
 - include_tasks: gnome.yml
   when: ansible_facts['env']['DESKTOP_SESSION'] == "ubuntu"
 

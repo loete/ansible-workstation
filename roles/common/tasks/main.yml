@@ -40,6 +40,7 @@
     - less
     - lftp
     - make
+    - nano
     - nfs-common
     - nmap
     - openssl

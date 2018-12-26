@@ -3,6 +3,33 @@
 - name: install gnome-session
   apt: pkg=gnome-session state=latest
 
+- name: Download GNOME Shell extensions
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/{{ item.name }}.zip"
+  with_items: "{{ gnome_extensions|default([]) }}"
+  tags:
+    - extensions
+
+- name: Create GNOME extension directories
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/{{ item.name }}"
+    state: directory
+  become_user: "{{ ansible_env.USER }}"
+  with_items: "{{ gnome_extensions|default([]) }}"
+  tags:
+    - extensions
+
+- name: Unzip GNOME extensions
+  unarchive:
+    src: "/tmp/{{ item.name }}.zip"
+    dest: "{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/{{ item.name }}"
+    remote_src: yes
+  become_user: "{{ ansible_env.USER }}"
+  with_items: "{{ gnome_extensions|default([])}}"
+  tags:
+    - extensions
+
 - name: enable adapta gdm3 login screen
   command: update-alternatives --install /usr/share/gnome-shell/theme/gdm3.css gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css 1
 
@@ -45,7 +72,19 @@
   - org.gnome.desktop.interface document-font-name 'Noto Sans 11'
   - org.gnome.desktop.interface gtk-theme Adapta-Nokto
   - org.gnome.desktop.interface icon-theme Papirus-Dark
+  - org.gnome.desktop.background show-desktop-icons false
+  - org.gnome.desktop.background picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp0.jpg'
+  - org.gnome.desktop.screensaver picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp2.jpg'
   - org.gnome.desktop.wm.preferences theme Adapta-Nokto
   - org.gnome.desktop.wm.preferences titlebar-uses-system-font true
   - org.gnome.desktop.wm.preferences button-layout ':appmenu,close'
   - org.gnome.desktop.wm.preferences titlebar-font 'NotoSansDisplay Nerd Font Bold 11'
+  - org.gnome.shell.extensions.dash-to-dock show-show-apps-button true
+  - org.gnome.shell.extensions.dash-to-dock custom-theme-running-dots true
+  - org.gnome.shell.extensions.dash-to-dock show-apps-at-top false
+  - org.gnome.shell.extensions.dash-to-dock intellihide-mode 'FOCUS_APPLICATION_WINDOWS'
+  - org.gnome.shell.extensions.dash-to-dock background-color '#222d32'
+  - org.gnome.shell.extensions.dash-to-dock multi-monitor true
+  - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+  - org.gnome.shell.extensions.dash-to-dock custom-background-color true
+  - org.gnome.shell enabled-extensions ['caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'ubuntu-appindicators@ubuntu.com']
