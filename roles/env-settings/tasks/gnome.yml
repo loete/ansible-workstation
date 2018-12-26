@@ -92,4 +92,6 @@
   - org.gnome.shell.extensions.dash-to-dock multi-monitor true
   - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
   - org.gnome.shell.extensions.dash-to-dock custom-background-color true
+  - org.gnome.shell.extensions.dash-to-dock dock-fixed false
+  - org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'code.desktop']"
   - org.gnome.shell enabled-extensions "['caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'ubuntu-appindicators@ubuntu.com']"
