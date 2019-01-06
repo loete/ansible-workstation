@@ -20,7 +20,7 @@
 
 - name: Create GNOME extension directories
   file:
-    path: "{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/{{ item.name }}"
+    path: "usr/local/share/gnome-shell/extensions/{{ item.name }}"
     state: directory
   become_user: "{{ ansible_env.USER }}"
   with_items: "{{ gnome_extensions|default([]) }}"
@@ -30,7 +30,7 @@
 - name: Unzip GNOME extensions
   unarchive:
     src: "/tmp/{{ item.name }}.zip"
-    dest: "{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/{{ item.name }}"
+    dest: "usr/local/share/gnome-shell/extensions/{{ item.name }}"
     remote_src: yes
   become_user: "{{ ansible_env.USER }}"
   with_items: "{{ gnome_extensions|default([])}}"
@@ -94,11 +94,18 @@
   - org.gnome.desktop.wm.preferences titlebar-uses-system-font true
   - org.gnome.desktop.wm.preferences button-layout ':appmenu,close'
   - org.gnome.desktop.wm.preferences titlebar-font 'NotoSansDisplay Nerd Font Bold 11'
-  - org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
-  - org.gnome.shell.extensions.dash-to-dock show-apps-at-top false
-  - org.gnome.shell.extensions.dash-to-dock intellihide-mode 'FOCUS_APPLICATION_WINDOWS'
-  - org.gnome.shell.extensions.dash-to-dock background-color '#222d32'
-  - org.gnome.shell.extensions.dash-to-dock multi-monitor true
-  - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
-  - org.gnome.shell.extensions.dash-to-dock custom-background-color true
-  - org.gnome.shell.extensions.dash-to-dock dock-fixed false
+#  - org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
+#  - org.gnome.shell.extensions.dash-to-dock show-apps-at-top false
+#  - org.gnome.shell.extensions.dash-to-dock intellihide-mode 'FOCUS_APPLICATION_WINDOWS'
+#  - org.gnome.shell.extensions.dash-to-dock background-color '#222d32'
+#  - org.gnome.shell.extensions.dash-to-dock multi-monitor true
+#  - org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+#  - org.gnome.shell.extensions.dash-to-dock custom-background-color true
+#  - org.gnome.shell.extensions.dash-to-dock dock-fixed false
+
+#- name: uninstall ubuntu-dock
+#  apt:
+#    name: gnome-shell-extension-ubuntu-dock
+#    state: absent
+#  tags:
+#    - extensions
