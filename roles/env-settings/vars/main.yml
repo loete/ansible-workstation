@@ -3,8 +3,8 @@
 gnome_extensions:
   #- url: "https://extensions.gnome.org/extension-data/appindicatorsupport%40rgcjonas.gmail.com.v22.shell-extension.zip"
   #  name: "appindicatorsupport@rgcjonas.gmail.com"
-  - url: "https://extensions.gnome.org/extension-data/dash-to-dock%40micxgx.gmail.com.v64.shell-extension.zip"
-    name: "dash-to-dock@micxgx.gmail.com"
+  #- url: "https://extensions.gnome.org/extension-data/dash-to-dock%40micxgx.gmail.com.v64.shell-extension.zip"
+  #  name: "dash-to-dock@micxgx.gmail.com"
   - url: "https://extensions.gnome.org/extension-data/caffeine%40patapon.info.v30.shell-extension_ov9BwbU.zip"
     name: "caffeine@patapon.info"
   - url: "https://extensions.gnome.org/extension-data/no-symbolic-icons%40evanwelsh.com.v1.shell-extension.zip"
