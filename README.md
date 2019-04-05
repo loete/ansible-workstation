@@ -1,12 +1,10 @@
-# dotfiles
-my ubuntu dotfiles
-## about
-WIP ... A repo to organize my dotfiles, provide an ansible script to "bootstrap" a new ubuntu system with my dotfiles, settings and software.
-## installation
+# Ansible Workstation
+An ansible playbook to bootstrap a fresh ubuntu installation with my dotfiles, settings and software.
+## toBootstrap
 install git, clone repo and run bootstrap.py
 ```
 sudo apt install git
-git clone https://github.com/loete/dotfiles.git
-cd dotfiles
+git clone git@github.com:loete/ansible-workstation.git
+cd ansible-workstation
 python3 bootstrap.py
 ```

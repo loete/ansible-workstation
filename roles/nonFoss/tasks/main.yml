@@ -1,0 +1,9 @@
+---
+
+- name: install chrome
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+- name: install cloudstation drive
+  apt: 
+    deb: https://global.download.synology.com/download/Tools/CloudStationDrive/4.3.0-4435/Ubuntu/Installer/x86_64/synology-cloud-station-drive-4435.x86_64.deb

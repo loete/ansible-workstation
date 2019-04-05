@@ -4,8 +4,8 @@ snaps:
   - telegram-desktop
   - signal-desktop
   - spotify
+  - simplenote
   - vlc
   - gimp
   - inkscape
   - robo3t-snap
-  - skype --classic

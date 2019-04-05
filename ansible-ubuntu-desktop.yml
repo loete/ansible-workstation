@@ -5,7 +5,7 @@
   vars:
     user: loete
   roles:
-    # Common roles:
+    # roles:
     - { role: common, become: true }
     - { role: zsh, become: true }
     - { role: adapta-theme, become: true }
@@ -13,3 +13,5 @@
     - { role: env-settings, become: true }
     - { role: vs-code, become: true }
     - { role: snaps, become: true }
+    - { role: nonFoss, become: true }
+
