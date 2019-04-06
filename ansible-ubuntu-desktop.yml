@@ -10,8 +10,9 @@
     - { role: zsh, become: true }
     - { role: adapta-theme, become: true }
     - { role: papirus-icon-theme, become: true }
-    - { role: env-settings, become: true }
+    - { role: desktop-env, become: true }
     - { role: vs-code, become: true }
     - { role: snaps, become: true }
     - { role: nonFoss, become: true }
-
+    - { role: docker-ce, become: true }
+    - { role: kvm2, become: true }

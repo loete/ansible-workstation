@@ -8,12 +8,12 @@
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
 
-- name: clone zsh-syntax-highlighting
+- name: clone zsh plugins
   git:
-    repo: https://github.com/zsh-users/{{ item }}.git
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/{{ item }}"
+    repo: "{{item.repo}}"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
     update: no
-  loop: "{{ zsh_users_plugins }}"
+  with_items: "{{ oh_my_zsh_custom_plugins }}"
 
 - name: clone powerlevel9k
   git:

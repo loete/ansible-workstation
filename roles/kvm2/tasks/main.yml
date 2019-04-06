@@ -1,0 +1,47 @@
+---
+
+- name: Install common packages
+  apt: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - qemu-kvm 
+    - libvirt-daemon-system
+    - libvirt-clients
+    - bridge-utils
+    - virt-manager
+  
+- name: start enable libvirtd service
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+- name: add user to libvirt group
+  user:
+    name: "{{ ansible_env.USER }}"
+    group: libvirt
+    append: yes
+
+- name: create network bridge
+  blockinfile:
+    path: /etc/network/interfaces
+    block: |
+      auto br0
+      iface br0 inet static
+        address {{ ansible_default_ipv4.address }}
+        network {{ ansible_default_ipv4.network }}
+        netmask {{ ansible_default_ipv4.netmask }}
+        broadcast {{ ansible_default_ipv4.broadcast }}
+        gateway {{ ansible_default_ipv4.gateway }}
+        dns-nameservers 1.1.1.1 1.0.0.1
+        dns-search example.com
+        bridge_ports {{ ansible_default_ipv4.interface }}
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0
+
+- name: restart network
+  service: 
+    name: networking
+    state: restarted

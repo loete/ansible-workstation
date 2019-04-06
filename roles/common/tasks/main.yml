@@ -12,10 +12,13 @@
   replace: dest=/etc/apt/sources.list regexp='^#\s?deb(.+)http://(.+)/ubuntu(.+)$' replace='deb\1http://\2/ubuntu\3' backup=yes
 
 - name: Update Aptitude repos
-  apt: update_cache=yes cache_valid_time={{ aptcachetime }}
+  apt: 
+    update_cache: yes
 
 - name: Install common packages
-  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
+  apt: 
+    name: "{{ item }}"
+    state: latest
   with_items:
     - aptitude
     - axel

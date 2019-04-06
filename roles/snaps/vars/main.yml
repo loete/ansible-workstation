@@ -9,3 +9,4 @@ snaps:
   - gimp
   - inkscape
   - robo3t-snap
+  - kubectl --classic
