@@ -16,3 +16,4 @@
     - { role: nonFoss, become: true }
     - { role: docker-ce, become: true }
     - { role: kvm2, become: true }
+    - { role: latex, become: true }

@@ -1,0 +1,25 @@
+---
+
+- name: install texlive
+  apt:
+    name: texlive
+    state: latest
+  tags:
+    - latex
+
+- name: get apt package facts
+  package_facts:
+    manager: "auto"
+  tags:
+    - latex
+
+- name: install vscode extensions if vscode is installed
+  become_user: "{{user}}"
+  command: "code --install-extension {{item}}"
+  with_items:
+    - James-Yu.latex-workshop
+    - streetsidesoftware.code-spell-checker
+    - streetsidesoftware.code-spell-checker-german
+  when: '"code" in ansible_facts.packages'
+  tags:
+    - latex
