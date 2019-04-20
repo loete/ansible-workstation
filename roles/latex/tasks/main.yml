@@ -1,9 +1,12 @@
 ---
 
-- name: install texlive
+- name: install packages
   apt:
-    name: texlive
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - texlive
+    - xzdec
   tags:
     - latex
 
@@ -21,5 +24,21 @@
     - streetsidesoftware.code-spell-checker
     - streetsidesoftware.code-spell-checker-german
   when: '"code" in ansible_facts.packages'
+  tags:
+    - latex
+
+- name: tlmgr init-usertree
+  command: tlmgr init-usertree
+  tags:
+    - latex
+
+# https://tex.stackexchange.com/questions/429714/tlmgr-remote-repository-is-newer-than-local-2017-2018
+- name: fix year issue
+  command: tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final
+  tags: 
+    - latex
+
+- name: install luainputenc.sty
+  command: tlmgr install luainputenc
   tags:
     - latex
