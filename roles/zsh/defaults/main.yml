@@ -9,8 +9,3 @@ oh_my_zsh_custom_plugins:
     repo: "https://github.com/zsh-users/zsh-completions.git"
   - name: zsh-nvm
     repo: "https://github.com/lukechilds/zsh-nvm.git"
-
-zsh_users_plugins:
-  - zsh-syntax-highlighting
-  - zsh-autosuggestions
-  - zsh-completions

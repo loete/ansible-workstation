@@ -4,6 +4,9 @@
   apt_key:
     url: "https://packages.microsoft.com/keys/microsoft.asc"
     state: present
+  tags:
+    - vscode
+
 
 - name: add vs-code apt_repository
   apt_repository:
@@ -11,8 +14,33 @@
     filename: vscode
     state: present
     update_cache: yes
+  tags:
+    - vscode
 
 - name: install vscode
   apt:
     name: code
     update_cache: true
+  tags:
+    - vscode
+
+- name: get apt package facts
+  package_facts:
+    manager: "auto"
+  tags:
+    - vscode
+
+- name: install vscode extensions if vscode is installed
+  become_user: "{{user}}"
+  command: "code --install-extension {{item}}"
+  with_items:
+    - about-code.vscode-theme-adapted
+    - vscoss.vscode-ansible
+    - peterjausovec.vscode-docker
+    - ms-kubernetes-tools.vscode-kubernetes-tools
+    - redhat.vscode-yaml
+    - dbaeumer.vscode-eslint
+    - hookyqr.beautify
+  when: '"code" in ansible_facts.packages'
+  tags:
+    - vscode
