@@ -9,6 +9,9 @@
 
 - include_tasks: gnome.yml
   when: ansible_facts['env']['DESKTOP_SESSION'] == "ubuntu"
+  tags:
+    - gextensions
+    - gsettings
 
 - include_tasks: xfce.yml
   when: ansible_facts['env']['DESKTOP_SESSION'] == "xubuntu"

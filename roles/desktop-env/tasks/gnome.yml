@@ -9,7 +9,7 @@
     dest: "/tmp/{{ item.name }}.zip"
   with_items: "{{ gnome_extensions|default([]) }}"
   tags:
-    - extensions
+    - gextensions
 
 - name: Create GNOME extension directories
   file:
@@ -18,7 +18,7 @@
   become_user: "{{ ansible_env.USER }}"
   with_items: "{{ gnome_extensions|default([]) }}"
   tags:
-    - extensions
+    - gextensions
 
 - name: Unzip GNOME extensions
   unarchive:
@@ -28,13 +28,17 @@
   become_user: "{{ ansible_env.USER }}"
   with_items: "{{ gnome_extensions|default([])}}"
   tags:
-    - extensions
+    - gextensions
 
 - name: enable adapta gdm3 login screen
   command: update-alternatives --install /usr/share/gnome-shell/theme/gdm3.css gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css 1
+  tags:
+    - gsettings
 
 - name: gdm3.css
   command: update-alternatives --set gdm3.css /usr/share/themes/Adapta-Nokto/gnome-shell/gdm3-Adapta-Nokto.css
+  tags:
+    - gsettings
 
 - name: remove *.css files
   file:
@@ -44,15 +48,21 @@
     - theme/gnome-shell.css
     - theme/ubuntu.css
     - gnome-shell-theme.gresource
+  tags:
+    - gsettings
 
 - name: fix gnome-shell.css
   command: sed -i.orig '/panel:overview/ s/rgba(19, 25, 28, 0.01)/rgba(19, 25, 28, 0.7)/g' /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell.css
+  tags:
+    - gsettings
 
 - name: link Adapta-Nokto gnome-shell-theme.gresource
   file:
     src: /usr/share/themes/Adapta-Nokto/gnome-shell/gnome-shell-theme.gresource
     dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
     state: link
+  tags:
+    - gsettings
 
 - name: create links to Adapta-Nokto gnome-shell.css
   file:
@@ -62,31 +72,37 @@
   with_items:
     - gnome-shell.css
     - ubuntu.css
+  tags:
+    - gsettings
 
 - name: link Adapta-Nokto assets
   file:
     src: /usr/share/themes/Adapta-Nokto/gnome-shell/assets
     dest: /usr/share/gnome-shell/theme/assets
     state: link
+  tags:
+    - gsettings
 
 - name: set gsettings
   command: "gsettings set {{ item }}"
   become_user: "{{ ansible_env.USER }}"
   with_items:
-  - org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'code.desktop']"
-  - org.gnome.shell enabled-extensions "['caffeine@patapon.info', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com']" # 'dash-to-dock@micxgx.gmail.com','ubuntu-appindicators@ubuntu.com'
-  - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
-  - org.gnome.desktop.interface font-name 'Noto Sans UI 11'
-  - org.gnome.desktop.interface document-font-name 'Noto Sans 11'
-  - org.gnome.desktop.interface gtk-theme Adapta-Nokto
-  - org.gnome.desktop.interface icon-theme Papirus-Dark
-  - org.gnome.desktop.background show-desktop-icons false
-  - org.gnome.desktop.background picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp0.jpg'
-  - org.gnome.desktop.screensaver picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp2.jpg'
-  - org.gnome.desktop.wm.preferences theme Adapta-Nokto
-  - org.gnome.desktop.wm.preferences titlebar-uses-system-font true
-  - org.gnome.desktop.wm.preferences button-layout ':appmenu,close'
-  - org.gnome.desktop.wm.preferences titlebar-font 'NotoSansDisplay Nerd Font Bold 11'
+    - org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'code.desktop']"
+    - org.gnome.shell enabled-extensions "['caffeine@patapon.info', 'no-symbolic-icons@evanwelsh.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com']" # 'dash-to-dock@micxgx.gmail.com','ubuntu-appindicators@ubuntu.com'
+    - org.gnome.desktop.interface monospace-font-name 'NotoMono Nerd Font Mono Bold 11'
+    - org.gnome.desktop.interface font-name 'Noto Sans UI 11'
+    - org.gnome.desktop.interface document-font-name 'Noto Sans 11'
+    - org.gnome.desktop.interface gtk-theme Adapta-Nokto
+    - org.gnome.desktop.interface icon-theme Papirus-Dark
+    - org.gnome.desktop.background show-desktop-icons false
+    - org.gnome.desktop.background picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp0.jpg'
+    - org.gnome.desktop.screensaver picture-uri 'file://{{ ansible_env.HOME }}/.local/share/wallpapers/wp2.jpg'
+    - org.gnome.desktop.wm.preferences theme Adapta-Nokto
+    - org.gnome.desktop.wm.preferences titlebar-uses-system-font true
+    - org.gnome.desktop.wm.preferences button-layout ':appmenu,close'
+    - org.gnome.desktop.wm.preferences titlebar-font 'NotoSansDisplay Nerd Font Bold 11'
+  tags:
+    - gsettings
 #  - org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
 #  - org.gnome.shell.extensions.dash-to-dock show-apps-at-top false
 #  - org.gnome.shell.extensions.dash-to-dock intellihide-mode 'FOCUS_APPLICATION_WINDOWS'
